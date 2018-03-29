@@ -46,7 +46,6 @@ class Login extends CI_Controller {
         
         $parseJson = json_decode($result, TRUE);
         
-        
         if($parseJson['id'] == "Authenticated"){            
             $session = array(
                 'glbId' => $parseJson['glbId'],

@@ -53,7 +53,7 @@ ini_set(“display_errors”, 0 );
                     </div>
                         <footer class="footer">
                             <div class="copyright pull-left">
-                                G.T.G.L | Versão 2.0
+                                G.T.G.L. | Versão 2.0
                                 &copy; <script>document.write(new Date().getFullYear())</script>, feito por <a href="https://www.github.com/asvinicius">Vinícius Anjos</a>
                             </div>
                         </footer>
