@@ -31,32 +31,32 @@
                     <ul class="nav">
                         <li>
                             <a href="#">
+                                <i class="ti-stats-up"></i>
+                                <p>Parciais</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
                                 <i class="ti-view-list-alt"></i>
-                                <p>Apostas</p>
+                                <p>Tabela Geral</p>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="ti-bar-chart"></i>
-                                <p>Rendimentos</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ti-server"></i>
-                                <p>Histórico</p>
+                                <i class="ti-calendar"></i>
+                                <p>Tabela Mês</p>
                             </a>
                         </li>
                         <li>
                             <a href="#">
                                 <i class="ti-wallet"></i>
-                                <p>Carteira</p>
+                                <p>Banco</p>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="ti-help"></i>
-                                <p>Sobre</p>
+                                <i class="ti-info"></i>
+                                <p>Informações</p>
                             </a>
                         </li>
                         <li class="active-pro">

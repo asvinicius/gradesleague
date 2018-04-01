@@ -10,9 +10,14 @@ O objetivo é que seja capaz de registrar todos os dados sobre a liga, como:
     Líder e lantera da liga em cada turno;
     Líder e lantera da liga no campeonato;
 
-Version 2.0.1.2
+Version 2.0.1.3
 
-Version X.Y.Z.H -> X: Versão de 2018, segunda do projeto.
-Version X.Y.Z.H -> Y: Base inicial do projeto. Caso haja mudança no projeto, adiciona-se uma versão.
-Version X.Y.Z.H -> Z: Quantidade de funcionalidades implementadas na versão atual.
-Version X.Y.Z.H -> H: Commits dentro da funcionalidade sendo trabalhada.
+Version X.Y.Z.H -> 
+    * X: Versão de 2018, segunda do projeto; 
+    * Y: Base inicial do projeto. Caso haja mudança no projeto, adiciona-se uma versão; 
+    * Z: Quantidade de funcionalidades implementadas na versão atual; 
+    * H: Commits dentro da funcionalidade sendo trabalhada.
+
+Estado da arte: 
+    * Login integrado com a API do Cartola FC - CONCLUÍDO;
+    * Informações sobre status do cartola sendo buscadas na API - ANDAMENTO;
