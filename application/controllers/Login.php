@@ -52,11 +52,133 @@ class Login extends CI_Controller {
                 'logged' => TRUE
             );
             $this->session->set_userdata($session);
-            redirect(base_url('login'));
+            if($this->update()){
+                redirect(base_url('login'));
+            }
         }else{            
             redirect(base_url('login'));
         }      
+    }
+    
+    public function update() {
+        $this->load->model('StatusModel');
+        $status = new StatusModel();
         
+        $laststatus = $status->search();
+        $json = $this->getstatus();
+        
+        if($json['status_mercado'] == 4){
+            return true;
+        }
+        else{
+            if($json['rodada_atual'] == $laststatus['currentround'] && $json['status_mercado'] == $laststatus['marketstatus']){
+                return true;
+            }
+            else{
+                $this->updatedatabase();
+                return true;
+            }
+        }
+    }
+    
+    public function updatedatabase() {
+        $league = $this->getleague();
+        
+        $this->checknewteam($league);
+        $this->checkstatus();
+    }
+    
+    public function checknewteam($league) {
+        $this->load->model('TeamModel');
+        $team = new TeamModel();
+        
+        foreach ($league['times'] as $leagueteam) {
+            $aux = $team->search($leagueteam['time_id']);
+            
+            if(!$aux){
+                $teamdata['teamid'] = $leagueteam['time_id'];
+                $teamdata['name'] = $leagueteam['nome'];
+                $teamdata['coach'] = $leagueteam['nome_cartola'];
+                $teamdata['teamslug'] = $leagueteam['slug'];
+                $teamdata['nickcoach'] = $leagueteam['nome_cartola'];
+                $teamdata['vr'] = 0;
+                $teamdata['vm'] = 0;
+                $teamdata['lr'] = 0;
+                $teamdata['lm'] = 0;
+
+                $team->save($teamdata);
+            }
+        }
+    }
+    
+    public function checkstatus() {
+        $this->load->model('StatusModel');
+        $status = new StatusModel();
+        $json = $this->getstatus();
+        
+        $laststatus = $status->search();
+        
+        $lsdata['statusid'] = $laststatus['statusid'];
+        $lsdata['currentround'] = $json['rodada_atual'];
+        $lsdata['marketstatus'] = $json['status_mercado'];
+        
+        $status->update($lsdata);
+    }
+    
+    public function getstatus() {
+        
+        $url = 'https://api.cartolafc.globo.com/mercado/status';
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER ,[
+          'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+          'Content-Type: application/json',
+        ]);
+        $result = curl_exec($ch);
+        
+        if ($result === FALSE) {
+            die(curl_error($ch));
+        }
+        
+        curl_close($ch);
+        
+        $json = json_decode($result, true);
+        
+        return $json;
+    }
+    
+    public function getleague() {
+        
+        $url = 'https://api.cartolafc.globo.com/auth/liga/gt-grades-league-2018';
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, false);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($ch, CURLOPT_HTTPHEADER ,[
+          'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36',
+          'Content-Type: application/json',
+          'X-GLB-Token: '.$this->session->userdata('glbId'),
+        ]);
+        $result = curl_exec($ch);
+        
+        if ($result === FALSE) {
+            die(curl_error($ch));
+        }
+        
+        curl_close($ch);
+        
+        $json = json_decode($result, true);
+        
+        return $json;
     }
     
     public function signout() {

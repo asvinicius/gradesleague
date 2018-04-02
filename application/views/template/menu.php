@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="<?= base_url('info'); ?>">
                                 <i class="ti-info"></i>
                                 <p>Informações</p>
                             </a>

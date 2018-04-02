@@ -41,118 +41,74 @@
                             <div class="card">
                                 <div class="header">
                                     <h4 class="title">Visão geral</h4>
-                                    <p class="category">Performance no campeonato</p>
+                                    <p class="category">Performance total dos times</p>
                                 </div>
                                 <div class="content">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-hover">
-                                            <thead>
-                                                <th title="Time">Time</th>
-                                                <th title="Cartoleiro">Cartoleiro</th>
-                                                <th title="Vitórias de rodada">VR</th>
-                                                <th title="Lanternas de rodada">LR</th>
-                                                <th title="Vitórias de mês">VM</th>
-                                                <th title="Lanternas de mês">LM</th>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Dexolas Dexolas</td>
-                                                    <td>Viníciu Anjos</td>
-                                                    <td>1</td>
-                                                    <td>1</td>
-                                                    <td>2</td>
-                                                    <td>0</td>
-                                                </tr>
-                                            </tbody>
+                                            <?php if($teams){ ?>
+                                                <thead>
+                                                    <th title="Time">Time</th>
+                                                    <th title="Cartoleiro">Cartoleiro</th>
+                                                    <th title="Vitórias de rodada">VR</th>
+                                                    <th title="Lanternas de rodada">LR</th>
+                                                    <th title="Vitórias de mês">VM</th>
+                                                    <th title="Lanternas de mês">LM</th>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($teams as $team){ ?>
+                                                        <tr>
+                                                            <td><?php echo $team->name; ?></td>
+                                                            <td><?php echo $team->nickcoach; ?></td>
+                                                            <td><?php echo $team->vr; ?></td>
+                                                            <td><?php echo $team->vm; ?></td>
+                                                            <td><?php echo $team->lr; ?></td>
+                                                            <td><?php echo $team->lm; ?></td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            <?php } ?>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Email Statistics</h4>
-                                    <p class="category">Last Campaign Performance</p>
+                                    <h4 class="title">Visão detalhada</h4>
+                                    <p class="category">Performance detalhada</p>
                                 </div>
                                 <div class="content">
-                                    <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
-
-                                    <div class="footer">
-                                        <div class="chart-legend">
-                                            <i class="fa fa-circle text-info"></i> Open
-                                            <i class="fa fa-circle text-danger"></i> Bounce
-                                            <i class="fa fa-circle text-warning"></i> Unsubscribe
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="ti-timer"></i> Campaign sent 2 days ago
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card ">
-                                <div class="header">
-                                    <h4 class="title">2015 Sales</h4>
-                                    <p class="category">All products including Taxes</p>
-                                </div>
-                                <div class="content">
-                                    <div id="chartActivity" class="ct-chart"></div>
-
-                                    <div class="footer">
-                                        <div class="chart-legend">
-                                            <i class="fa fa-circle text-info"></i> Tesla Model S
-                                            <i class="fa fa-circle text-warning"></i> BMW 5 Series
-                                        </div>
-                                        <hr>
-                                        <div class="stats">
-                                            <i class="ti-check"></i> Data information certified
-                                        </div>
+                                    <div class="content table-responsive table-full-width">
+                                        <table class="table table-hover">
+                                            <?php if($teams){ ?>
+                                                <thead>
+                                                    <th title="Mês">Mês</th>
+                                                    <th title="Rodadas">Rodadas</th>
+                                                    <th title="Campeão">Campeão</th>
+                                                    <th title="Lanterna">Lanterna</th>
+                                                    <th title="Detalhes">Detalhes</th>
+                                                </thead>
+                                                <tbody>
+                                                    <?php foreach ($teams as $team){ ?>
+                                                        <tr>
+                                                            <td><?php echo $team->vr; ?></td>
+                                                            <td><?php echo $team->vm; ?></td>
+                                                            <td><?php echo $team->lr; ?></td>
+                                                            <td><?php echo $team->lm; ?></td>
+                                                            <td>
+                                                                <a href="#" title="Detalhes" class="icon-info">
+                                                                    <i class="ti-plus"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </tbody>
+                                            <?php } ?>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
