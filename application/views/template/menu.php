@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+error_reporting(0);
+ini_set(“display_errors”, 0 );
+?>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -23,38 +28,38 @@
             <div class="sidebar" data-background-color="white" data-active-color="info">
                 <div class="sidebar-wrapper">
                     <div class="logo">
-                        <a href="<?= base_url(); ?>" class="simple-text">
+                        <a href="<?= base_url(); ?>" class="simple-text" title="Início">
                             Grades League
                         </a>
                     </div>
 
                     <ul class="nav">
-                        <li>
-                            <a href="#">
+                        <li class="<?php if($current != null){if($current["id"] == 2){echo 'active';}} ?>">
+                            <a href="#" title="Parciais">
                                 <i class="ti-stats-up"></i>
                                 <p>Parciais</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li class="<?php if($current != null){if($current["id"] == 3){echo 'active';}} ?>">
+                            <a href="#" title="Tabela Geral">
                                 <i class="ti-view-list-alt"></i>
                                 <p>Tabela Geral</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li class="<?php if($current != null){if($current["id"] == 4){echo 'active';}} ?>">
+                            <a href="#" title="Tabela Mês">
                                 <i class="ti-calendar"></i>
                                 <p>Tabela Mês</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li class="<?php if($current != null){if($current["id"] == 5){echo 'active';}} ?>">
+                            <a href="#" title="Banco">
                                 <i class="ti-wallet"></i>
                                 <p>Banco</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="<?= base_url('info'); ?>">
+                        <li class="<?php if($current != null){if($current["id"] == 6){echo 'active';}} ?>">
+                            <a href="<?= base_url('info'); ?>" title="Informações">
                                 <i class="ti-info"></i>
                                 <p>Informações</p>
                             </a>

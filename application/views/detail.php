@@ -30,7 +30,17 @@
                             <span class="icon-bar bar2"></span>
                             <span class="icon-bar bar3"></span>
                         </button>
-                        <p class="navbar-brand">Informações</p>
+                        <p class="navbar-brand"><?php echo $avdata['description']; ?></p>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li>
+                                <a href="<?= base_url('info'); ?>">
+                                    <i class="ti-arrow-left"></i>
+                                    <p>Voltar</p>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
@@ -40,70 +50,24 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Visão geral</h4>
-                                    <p class="category">Performance total dos times</p>
+                                    <h4 class="title">Detalhes</h4>
+                                    <p class="category">Detalhes das rodadas de <?php echo $avdata['description']; ?></p>
                                 </div>
                                 <div class="content">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-hover">
-                                            <?php if($teams){ ?>
+                                            <?php if($mvdata){ ?>
                                                 <thead>
-                                                    <th title="Time">Time</th>
-                                                    <th title="Cartoleiro">Cartoleiro</th>
-                                                    <th title="Vitórias de rodada">VR</th>
-                                                    <th title="Lanternas de rodada">LR</th>
-                                                    <th title="Vitórias de mês">VM</th>
-                                                    <th title="Lanternas de mês">LM</th>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($teams as $team){ ?>
-                                                        <tr>
-                                                            <td><?php echo $team->name; ?></td>
-                                                            <td><?php echo $team->nickcoach; ?></td>
-                                                            <td><?php echo $team->vr; ?></td>
-                                                            <td><?php echo $team->vm; ?></td>
-                                                            <td><?php echo $team->lr; ?></td>
-                                                            <td><?php echo $team->lm; ?></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            <?php } ?>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Visão detalhada</h4>
-                                    <p class="category">Performance detalhada</p>
-                                </div>
-                                <div class="content">
-                                    <div class="content table-responsive table-full-width">
-                                        <table class="table table-hover">
-                                            <?php if($avdata){ ?>
-                                                <thead>
-                                                    <th title="Mês">Mês</th>
-                                                    <th title="Rodadas">Rodadas</th>
-                                                    <th title="Campeão">Campeão</th>
+                                                    <th title="Rodada">Rodada</th>
+                                                    <th title="Líder">Líder</th>
                                                     <th title="Lanterna">Lanterna</th>
-                                                    <th title="Detalhes">Detalhes</th>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($avdata as $data){ ?>
+                                                    <?php foreach ($mvdata as $data){ ?>
                                                         <tr>
-                                                            <td><?php echo $data->description; ?></td>
-                                                            <td><?php echo $data->rounds; ?></td>
+                                                            <td><?php echo $data->mvid; ?></td>
                                                             <td><?php echo $data->winner; ?></td>
                                                             <td><?php echo $data->loser; ?></td>
-                                                            <td>
-                                                                <a href="<?= base_url('info/detail/'.$data->avid); ?>" title="Detalhes" class="icon-info">
-                                                                    <i class="ti-plus"></i>
-                                                                </a>
-                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>

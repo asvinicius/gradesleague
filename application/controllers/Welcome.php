@@ -32,7 +32,7 @@ class Welcome extends CI_Controller {
                     break;
             }
             
-            $msg = array("round" => $json['rodada_atual'], "type" => $type, "icon" => $icon, "message" => $message, );
+            $msg = array("round" => $json['rodada_atual'], "type" => $type, "icon" => $icon, "message" => $message);
             
             $this->load->view('template/menu', $msg);
             $this->load->view('home', $msg);
