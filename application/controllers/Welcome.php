@@ -7,6 +7,10 @@ class Welcome extends CI_Controller {
     public function index(){
         if($this->islogged()){
             
+            $this->load->model('AnnualviewModel');
+            $anual = new AnnualviewModel();
+            $avdata = $anual->search(4);
+            
             $json = $this->getstatus();
             
             switch ($json['status_mercado']) {
@@ -32,7 +36,11 @@ class Welcome extends CI_Controller {
                     break;
             }
             
-            $msg = array("round" => $json['rodada_atual'], "type" => $type, "icon" => $icon, "message" => $message);
+            $msg = array("round" => $json['rodada_atual'], 
+                        "status" => $json['status_mercado'], 
+                        "type" => $type, "icon" => $icon, 
+                        "avdata" => $avdata,
+                        "message" => $message);
             
             $this->load->view('template/menu', $msg);
             $this->load->view('home', $msg);

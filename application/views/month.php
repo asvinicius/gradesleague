@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Detalhes</title>
+        <title>Ranking Mês</title>
 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
@@ -30,17 +30,7 @@
                             <span class="icon-bar bar2"></span>
                             <span class="icon-bar bar3"></span>
                         </button>
-                        <p class="navbar-brand"><?php echo $avdata['description']; ?></p>
-                    </div>
-                    <div class="collapse navbar-collapse">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="<?= base_url('info'); ?>">
-                                    <i class="ti-arrow-left"></i>
-                                    <p>Voltar</p>
-                                </a>
-                            </li>
-                        </ul>
+                        <p class="navbar-brand">Tabela Mês</p>
                     </div>
                 </div>
             </nav>
@@ -50,26 +40,45 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Detalhes</h4>
-                                    <p class="category">Detalhes das rodadas de <?php echo $avdata['description']; ?></p>
+                                    <h4 class="title">Tabela Mês</h4>
+                                    <p class="category">Pontuação total dos times no mês</p>
                                 </div>
                                 <div class="content">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-hover">
-                                            <?php if($mvdata){ ?>
+                                            <?php if($ranking){ ?>
                                                 <thead>
-                                                    <th title="Rodada">Rodada</th>
-                                                    <th title="Líder">Líder</th>
-                                                    <th title="Lanterna">Lanterna</th>
+                                                    <th title="Posição">#</th>
+                                                    <th title="Nome do time">Time</th>
+                                                    <th title="Nome do cartoleiro">Cartoleiro</th>
+                                                    <th title="Pontuação total">Pontuação</th>
+                                                    <th title="Patrimônio total">Patrimônio</th>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($mvdata as $data){ ?>
-                                                        <tr>
-                                                            <td><?php echo $data->mvid; ?></td>
-                                                            <td><?php echo $data->winner; ?></td>
-                                                            <td><?php echo $data->loser; ?></td>
+                                                    <?php
+                                                        $cont = 1;
+                                                        $final = 0;
+                                                        foreach ($ranking as $ranked) {
+                                                            $final = $final+1;
+                                                        }
+                                                        foreach ($ranking as $ranked){ ?>
+                                                    <tr <?php switch ($cont) {
+                                                                        case 1:
+                                                                            echo 'class="success"';
+                                                                            break;
+                                                                        case $final:
+                                                                            echo 'class="danger"';
+                                                                            break;
+                                                                    } ?>>
+                                                            <td><?php echo $cont; ?></td>
+                                                                <td><?php echo $ranked->name ?></td>
+                                                                <td><?php echo $ranked->nickcoach ?></td>
+                                                            <td><?php echo number_format($ranked->rating, 2) ?></td>
+                                                            <td><?php echo "C$ ".$ranked->patrimony ?></td>
                                                         </tr>
-                                                    <?php } ?>
+                                                    <?php $cont++;
+
+                                                        } ?>
                                                 </tbody>
                                             <?php } ?>
                                         </table>

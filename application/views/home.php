@@ -75,15 +75,17 @@
                                         </div>
                                         <div class="col-xs-7">
                                             <div class="numbers">
-                                                <p>Vinícius Anjos</p>
-                                                310.18 pts
+                                                <p>Campeão de <?php echo $avdata['description']; ?></p>
+                                                <?php if($avdata){ 
+                                                        echo $avdata['winner'];
+                                                }?>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="footer">
                                         <hr />
                                         <div class="stats">
-                                            <i class="ti-cup"></i> Campeão de Abril
+                                            <i class="ti-cup"></i> Campeão de <?php echo $avdata['description']; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -100,15 +102,17 @@
                                         </div>
                                         <div class="col-xs-8">
                                             <div class="numbers">
-                                                <p>JOSEMAR GUIMARÃES</p>
-                                                253.43 pts
+                                                <p>Lanterna de <?php echo $avdata['description']; ?></p>
+                                                <?php if($avdata){ 
+                                                        echo $avdata['loser'];
+                                                }?>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="footer">
                                         <hr />
                                         <div class="stats">
-                                            <i class="ti-trash"></i> Lanterna de Abril
+                                            <i class="ti-trash"></i> Lanterna de <?php echo $avdata['description']; ?>
                                         </div>
                                     </div>
                                 </div>

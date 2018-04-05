@@ -41,13 +41,13 @@ ini_set(“display_errors”, 0 );
                             </a>
                         </li>
                         <li class="<?php if($current != null){if($current["id"] == 3){echo 'active';}} ?>">
-                            <a href="#" title="Tabela Geral">
+                            <a href="<?= base_url('overall'); ?>" title="Tabela Geral">
                                 <i class="ti-view-list-alt"></i>
                                 <p>Tabela Geral</p>
                             </a>
                         </li>
                         <li class="<?php if($current != null){if($current["id"] == 4){echo 'active';}} ?>">
-                            <a href="#" title="Tabela Mês">
+                            <a href="<?= base_url('month'); ?>" title="Tabela Mês">
                                 <i class="ti-calendar"></i>
                                 <p>Tabela Mês</p>
                             </a>

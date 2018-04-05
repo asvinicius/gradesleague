@@ -85,6 +85,7 @@ class Login extends CI_Controller {
         $league = $this->getleague();
         
         $this->checknewteam($league);
+        $this->checkranking($league);
         $this->checkstatus();
     }
     
@@ -107,6 +108,55 @@ class Login extends CI_Controller {
                 $teamdata['lm'] = 0;
 
                 $team->save($teamdata);
+            }
+        }
+    }
+    
+    public function checkranking($league) {
+        $this->load->model('RankingModel');
+        $ranking = new RankingModel();
+        
+        foreach ($league['times'] as $leagueteam) {
+            $aux = $ranking->search($leagueteam['time_id'], 0);
+            $aux2 = $ranking->search($leagueteam['time_id'], 1);
+            
+            if($aux){
+                $rankingdata['rankingid'] = $aux['rankingid'];
+                $rankingdata['team'] = $aux['team'];
+                $rankingdata['rating'] = $leagueteam['pontos']['campeonato'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = $aux['type'];
+
+                if($ranking->update($rankingdata)){
+                }
+            }else{
+                $rankingdata['rankingid'] = null;
+                $rankingdata['team'] = $leagueteam['time_id'];
+                $rankingdata['rating'] = $leagueteam['pontos']['campeonato'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = 0;
+
+                if($ranking->save($rankingdata)){
+                }
+            }
+            if($aux2){
+                $rankingdata['rankingid'] = $aux2['rankingid'];
+                $rankingdata['team'] = $aux2['team'];
+                $rankingdata['rating'] = $leagueteam['pontos']['mes'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = $aux2['type'];
+
+                if($ranking->update($rankingdata)){
+                }
+            }else{
+                $rankingdata['rankingid'] = null;
+                $rankingdata['team'] = $leagueteam['time_id'];
+                $rankingdata['rating'] = $leagueteam['pontos']['mes'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = 1;
+
+                if($ranking->save($rankingdata)){
+                }
             }
         }
     }
