@@ -10,7 +10,7 @@ O objetivo é que seja capaz de registrar todos os dados sobre a liga, como:
     * Líder e lantera da liga em cada turno;
     * Líder e lantera da liga no campeonato;
 
- Version 2.0.2.0
+ Version 2.0.3.0
 
 Version X.Y.Z.H -> 
     * X: Versão de 2018, segunda do projeto; 
@@ -24,5 +24,9 @@ Estado da arte:
     * F2: CLASSIFICAÇÕES DO MES E CAMPEONATO - CONCLUÍDO;
         * Capaz de buscar informações sobre status da rodada - CONCLUÍDO;
         * Integração de dados entre a API e o banco de dados para informação de classificação - CONCLUÍDO;
-    * F2: INFORMAÇÕES SOBRE CAMPEÕES DE RODADA E MÊS - ANDAMENTO;
-        * Integração de dados entre a API e o banco de dados para informação campeões das rodadas e mêses - ANDAMENTO;
+    * F2: INFORMAÇÕES SOBRE CAMPEÕES DE RODADA E MÊS - CONCLUÍDO;
+        * Integração de dados entre a API e o banco de dados para informação campeões das rodadas e mêses - CONCLUÍDO;
+    * F3: INFORMAÇÕES SOBRE PAGAMENTOS DAS COTAS - NÃO INICIADO;
+        * Registro em banco de dados sobre pagamentos de cotas, atualizando a cada mês - NÃO INICIADO;
+    * F4: INFORMAÇÕES SOBRE PARCIAIS RODADA, MÊS E CAMPEONATO - NÃO INICIADO;
+        * Integração de dados entre a API e o banco de dados para informação de pontuações parciais - NÃO INICIADO;

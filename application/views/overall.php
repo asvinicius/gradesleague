@@ -67,7 +67,7 @@
                                                                 <td><?php echo $ranked->name ?></td>
                                                                 <td><?php echo $ranked->nickcoach ?></td>
                                                                 <td><?php echo number_format($ranked->rating, 2) ?></td>
-                                                                <td><?php echo "C$ ".$ranked->patrimony ?></td>
+                                                                <td><?php echo "C$ ".number_format($ranked->patrimony, 2, ',', '.'); ?></td>
                                                             </tr>
                                                         <?php $cont++;
 

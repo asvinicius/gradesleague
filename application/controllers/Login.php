@@ -71,21 +71,28 @@ class Login extends CI_Controller {
             return true;
         }
         else{
-            if($json['rodada_atual'] == $laststatus['currentround'] && $json['status_mercado'] == $laststatus['marketstatus']){
-                return true;
+            if($json['rodada_atual'] == $laststatus['currentround']){
+                if($json['status_mercado'] == $laststatus['marketstatus']){
+                    return true;
+                }
+                else{
+                    $this->checkstatus();
+                    return true;
+                }
             }
             else{
-                $this->updatedatabase();
+                $this->updatedatabase($json);
                 return true;
             }
         }
     }
     
-    public function updatedatabase() {
+    public function updatedatabase($json) {
         $league = $this->getleague();
         
         $this->checknewteam($league);
-        $this->checkranking($league);
+        $this->checkranking($league, $json);
+        $this->checkinfo($json);
         $this->checkstatus();
     }
     
@@ -112,13 +119,14 @@ class Login extends CI_Controller {
         }
     }
     
-    public function checkranking($league) {
+    public function checkranking($league, $json) {
         $this->load->model('RankingModel');
         $ranking = new RankingModel();
         
         foreach ($league['times'] as $leagueteam) {
             $aux = $ranking->search($leagueteam['time_id'], 0);
             $aux2 = $ranking->search($leagueteam['time_id'], 1);
+            $aux3 = $ranking->search($leagueteam['time_id'], 2);
             
             if($aux){
                 $rankingdata['rankingid'] = $aux['rankingid'];
@@ -158,7 +166,228 @@ class Login extends CI_Controller {
                 if($ranking->save($rankingdata)){
                 }
             }
+            if($json['status_mercado'] == 1){
+                if($aux3){
+                    $rankingdata['rankingid'] = $aux3['rankingid'];
+                    $rankingdata['team'] = $aux3['team'];
+                    $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
+                    $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                    $rankingdata['type'] = $aux3['type'];
+
+                    if($ranking->update($rankingdata)){
+                    }
+                }else{
+                    $rankingdata['rankingid'] = null;
+                    $rankingdata['team'] = $leagueteam['time_id'];
+                    $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
+                    $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                    $rankingdata['type'] = 2;
+
+                    if($ranking->save($rankingdata)){
+                    }
+                }
+            }
         }
+    }
+    
+    public function checkinfo($json) {
+        $this->load->model('TeamModel');
+        $this->load->model('AnnualviewModel');
+        $this->load->model('MonthlyviewModel');
+        $this->load->model('RoundsModel');
+        $this->load->model('RankingModel');
+        $team = new TeamModel();
+        $annual = new AnnualviewModel();
+        $monthly = new MonthlyviewModel();
+        $rounds = new RoundsModel();
+        $ranking = new RankingModel();
+        
+        $round = $rounds->search($json['rodada_atual']);
+        
+        $pastmv = $monthly->search($round['roundsid']-1);
+        $lastround = $ranking->listing(2);
+        
+        $pastmvdata['mvid'] = $pastmv['mvid'];
+        $pastmvdata['month'] = $pastmv['month'];
+        
+        $final = 0;
+        foreach ($lastround as $value) {
+            $final = $final+1;
+        }
+        $cont = 1;
+        foreach ($lastround as $value) {
+            switch ($cont) {
+                case 1:
+                    $obj = $team->search($value->team);
+                    $this->setroundwin($obj);
+                    $pastmvdata['winner'] = $obj['nickcoach'];
+                    break;
+                case $final:
+                    $obj = $team->search($value->team);
+                    $this->setroundlose($obj);
+                    $pastmvdata['loser'] = $obj['nickcoach'];
+                    break;
+            }
+            $cont++;
+        }
+        $monthly->update($pastmvdata);
+        
+        $mvdata['mvid'] = $round['roundsid'];
+        $mvdata['month'] = $round['month'];
+        $mvdata['winner'] = "Não definido";
+        $mvdata['loser'] = "Não definido";
+        
+        $monthly->save($mvdata);
+        
+        $anvw = $annual->search($round['month']);
+        
+        if($anvw){
+            $avdata['avid'] = $anvw['avid'];
+            $avdata['description'] = $anvw['description'];
+            $avdata['rounds'] = $anvw['rounds']++;
+            $avdata['winner'] = $anvw['winner'];
+            $avdata['loser'] = $anvw['loser'];
+
+            $annual->update($avdata);
+        }
+        else{
+            $pastav = $annual->search($round['month']-1);
+            $lastmonth = $ranking->listing(1);
+            
+            $pastavdata['avid'] = $pastav['avid'];
+            $pastavdata['description'] = $pastav['description'];
+            $pastavdata['rounds'] = $pastav['rounds'];
+
+            $final = 0;
+            foreach ($lastmonth as $value) {
+                $final = $final+1;
+            }
+            $cont = 1;
+            foreach ($lastmonth as $value) {
+                switch ($cont) {
+                    case 1:
+                        $obj = $team->search($value->team);
+                        $this->setmonthwin($obj);
+                        $pastavdata['winner'] = $obj['nickcoach'];
+                        break;
+                    case $final:
+                        $obj = $team->search($value->team);
+                        $this->setmonthlose($obj);
+                        $pastavdata['loser'] = $obj['nickcoach'];
+                        break;
+                }
+                $cont++;
+            }
+            
+            $annual->update($pastavdata);
+            
+            $avdata['avid'] = $round['month'];
+            $desc = null;
+            switch ($round['month']) {
+                case 5:
+                    $desc = "Maio";
+                    break;
+                case 6:
+                    $desc = "Junho";
+                    break;
+                case 7:
+                    $desc = "Julho";
+                    break;
+                case 8:
+                    $desc = "Agosto";
+                    break;
+                case 9:
+                    $desc = "Setembro";
+                    break;
+                case 10:
+                    $desc = "Outubro";
+                    break;
+                case 11:
+                    $desc = "Novembro";
+                    break;
+                case 12:
+                    $desc = "Dezembro";
+                    break;
+                default:
+                    $desc = "Abril";
+                    break;
+            }
+            $avdata['description'] = $desc;
+            $avdata['rounds'] = 1;
+            $avdata['winner'] = "Não definido";
+            $avdata['loser'] = "Não definido";
+
+            $annual->save($avdata);
+            
+        }
+    }
+    
+    public function setroundwin($obj) {
+        $this->load->model('TeamModel');
+        $team = new TeamModel();
+        
+        $teamdata['teamid'] = $obj['teamid'];
+        $teamdata['name'] = $obj['name'];
+        $teamdata['coach'] = $obj['coach'];
+        $teamdata['teamslug'] = $obj['teamslug'];
+        $teamdata['nickcoach'] = $obj['nickcoach'];
+        $teamdata['vr'] = $obj['vr']++;
+        $teamdata['vm'] = $obj['vm'];
+        $teamdata['lr'] = $obj['lr'];
+        $teamdata['lm'] = $obj['lm'];
+        
+        $team->update($teamdata);
+    }
+    
+    public function setroundlose($obj) {
+        $this->load->model('TeamModel');
+        $team = new TeamModel();
+        
+        $teamdata['teamid'] = $obj['teamid'];
+        $teamdata['name'] = $obj['name'];
+        $teamdata['coach'] = $obj['coach'];
+        $teamdata['teamslug'] = $obj['teamslug'];
+        $teamdata['nickcoach'] = $obj['nickcoach'];
+        $teamdata['vr'] = $obj['vr'];
+        $teamdata['vm'] = $obj['vm'];
+        $teamdata['lr'] = $obj['lr']++;
+        $teamdata['lm'] = $obj['lm'];
+        
+        $team->update($teamdata);
+    }
+    
+    public function setmonthwin($obj) {
+        $this->load->model('TeamModel');
+        $team = new TeamModel();
+        
+        $teamdata['teamid'] = $obj['teamid'];
+        $teamdata['name'] = $obj['name'];
+        $teamdata['coach'] = $obj['coach'];
+        $teamdata['teamslug'] = $obj['teamslug'];
+        $teamdata['nickcoach'] = $obj['nickcoach'];
+        $teamdata['vr'] = $obj['vr'];
+        $teamdata['vm'] = $obj['vm']++;
+        $teamdata['lr'] = $obj['lr'];
+        $teamdata['lm'] = $obj['lm'];
+        
+        $team->update($teamdata);
+    }
+    
+    public function setmonthlose($obj) {
+        $this->load->model('TeamModel');
+        $team = new TeamModel();
+        
+        $teamdata['teamid'] = $obj['teamid'];
+        $teamdata['name'] = $obj['name'];
+        $teamdata['coach'] = $obj['coach'];
+        $teamdata['teamslug'] = $obj['teamslug'];
+        $teamdata['nickcoach'] = $obj['nickcoach'];
+        $teamdata['vr'] = $obj['vr'];
+        $teamdata['vm'] = $obj['vm'];
+        $teamdata['lr'] = $obj['lr'];
+        $teamdata['lm'] = $obj['lm']++;
+        
+        $team->update($teamdata);
     }
     
     public function checkstatus() {

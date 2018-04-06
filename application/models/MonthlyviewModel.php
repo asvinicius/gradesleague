@@ -21,6 +21,20 @@ class MonthlyviewModel extends CI_Model{
         }
     }
     
+    public function update($data = null) {
+        if ($data != null) {
+            $this->db->where("mvid", $data['mvid']);
+            if ($this->db->update('monthlyview', $data)) {
+                return true;
+            }
+        }
+    }
+    
+    public function search($mvid) {
+        $this->db->where("mvid", $mvid);
+        return $this->db->get("monthlyview")->row_array();
+    }
+    
     public function listing($avid) {
         $this->db->where("month", $avid);
         return $this->db->get("monthlyview")->result();
