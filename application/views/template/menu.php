@@ -53,7 +53,7 @@ ini_set(“display_errors”, 0 );
                             </a>
                         </li>
                         <li class="<?php if($current != null){if($current["id"] == 5){echo 'active';}} ?>">
-                            <a href="#" title="Banco">
+                            <a href="<?= base_url('bank'); ?>" title="Banco">
                                 <i class="ti-wallet"></i>
                                 <p>Banco</p>
                             </a>

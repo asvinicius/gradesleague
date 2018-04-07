@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Informações</title>
+        <title>Banco</title>
 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
@@ -30,7 +30,7 @@
                             <span class="icon-bar bar2"></span>
                             <span class="icon-bar bar3"></span>
                         </button>
-                        <p class="navbar-brand">Informações</p>
+                        <p class="navbar-brand">Banco</p>
                     </div>
                 </div>
             </nav>
@@ -40,8 +40,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="header">
-                                    <h4 class="title">Visão geral</h4>
-                                    <p class="category">Performance total dos times</p>
+                                    <h4 class="title">Carteira da liga</h4>
+                                    <p class="category">Situação das cotas de cada cartoleiro</p>
                                 </div>
                                 <div class="content">
                                     <div class="content table-responsive table-full-width">
@@ -64,46 +64,6 @@
                                                             <td><?php echo $team->vr; ?></td>
                                                             <td><?php echo $team->lm; ?></td>
                                                             <td><?php echo $team->lr; ?></td>
-                                                        </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            <?php } ?>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="header">
-                                    <h4 class="title">Visão detalhada</h4>
-                                    <p class="category">Performance detalhada</p>
-                                </div>
-                                <div class="content">
-                                    <div class="content table-responsive table-full-width">
-                                        <table class="table table-hover">
-                                            <?php if($avdata){ ?>
-                                                <thead>
-                                                    <th title="Mês">Mês</th>
-                                                    <th title="Rodadas">Rodadas</th>
-                                                    <th title="Campeão">Campeão</th>
-                                                    <th title="Lanterna">Lanterna</th>
-                                                    <th title="Detalhes">Detalhes</th>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($avdata as $data){ ?>
-                                                        <tr>
-                                                            <td><?php echo $data->description; ?></td>
-                                                            <td><?php echo $data->rounds; ?></td>
-                                                            <td><?php echo $data->winner; ?></td>
-                                                            <td><?php echo $data->loser; ?></td>
-                                                            <td>
-                                                                <a href="<?= base_url('info/detail/'.$data->avid); ?>" title="Detalhes" class="icon-info">
-                                                                    <i class="ti-plus"></i>
-                                                                </a>
-                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>

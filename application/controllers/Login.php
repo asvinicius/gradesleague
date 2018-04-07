@@ -166,25 +166,23 @@ class Login extends CI_Controller {
                 if($ranking->save($rankingdata)){
                 }
             }
-            if($json['status_mercado'] == 1){
-                if($aux3){
-                    $rankingdata['rankingid'] = $aux3['rankingid'];
-                    $rankingdata['team'] = $aux3['team'];
-                    $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
-                    $rankingdata['patrimony'] = $leagueteam['patrimonio'];
-                    $rankingdata['type'] = $aux3['type'];
+            if($aux3){
+                $rankingdata['rankingid'] = $aux3['rankingid'];
+                $rankingdata['team'] = $aux3['team'];
+                $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = $aux3['type'];
 
-                    if($ranking->update($rankingdata)){
-                    }
-                }else{
-                    $rankingdata['rankingid'] = null;
-                    $rankingdata['team'] = $leagueteam['time_id'];
-                    $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
-                    $rankingdata['patrimony'] = $leagueteam['patrimonio'];
-                    $rankingdata['type'] = 2;
+                if($ranking->update($rankingdata)){
+                }
+            }else{
+                $rankingdata['rankingid'] = null;
+                $rankingdata['team'] = $leagueteam['time_id'];
+                $rankingdata['rating'] = $leagueteam['pontos']['rodada'];
+                $rankingdata['patrimony'] = $leagueteam['patrimonio'];
+                $rankingdata['type'] = 2;
 
-                    if($ranking->save($rankingdata)){
-                    }
+                if($ranking->save($rankingdata)){
                 }
             }
         }

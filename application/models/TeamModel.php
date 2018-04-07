@@ -51,6 +51,10 @@ class TeamModel extends CI_Model{
     
     public function listing() {
         $this->db->select('*');
+        $this->db->order_by("vm", "desc");
+        $this->db->order_by("vr", "desc");
+        $this->db->order_by("lm", "asc");
+        $this->db->order_by("lr", "asc");
         $this->db->order_by("nickcoach", "asc");
         return $this->db->get("team")->result();
     }
