@@ -6,12 +6,32 @@ class Bank extends CI_Controller {
 
     public function index(){
         if($this->islogged()){
+            $this->load->model('BankModel');
+            $bank = new BankModel();
             
             $page = $this->getPage();
+            $delivery = $bank->listing();
+            
+            $msg = array("bank" => $delivery);
             
             $this->load->view('template/menu', $page);
-            $this->load->view('bank');
+            $this->load->view('bank', $msg);
             $this->load->view('template/footer');
+        }
+    }
+    
+    public function add($bankid) {
+        $this->load->model('BankModel');
+        $bank = new BankModel();
+        
+        $data = $bank->search($bankid);
+        
+        $bankdata['bankid'] = $data['bankid'];
+        $bankdata['team'] = $data['team'];
+        $bankdata['balance'] = $data['balance']+1;
+        
+        if($bank->update($bankdata)){
+            redirect(base_url('bank'));
         }
     }
     

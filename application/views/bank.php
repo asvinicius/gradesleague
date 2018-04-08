@@ -46,24 +46,41 @@
                                 <div class="content">
                                     <div class="content table-responsive table-full-width">
                                         <table class="table table-hover">
-                                            <?php if($teams){ ?>
+                                            <?php if($bank){ ?>
                                                 <thead>
                                                     <th title="Time">Time</th>
                                                     <th title="Cartoleiro">Cartoleiro</th>
-                                                    <th title="Vitórias de mês">VM</th>
-                                                    <th title="Vitórias de rodada">VR</th>
-                                                    <th title="Lanternas de mês">LM</th>
-                                                    <th title="Lanternas de rodada">LR</th>
+                                                    <th title="Situação">Situação</th>
+                                                    <th title="Saldo">Saldo</th>
+                                                    <th title="Adicionar">Adicionar</th>
                                                 </thead>
                                                 <tbody>
-                                                    <?php foreach ($teams as $team){ ?>
-                                                        <tr>
-                                                            <td><?php echo $team->name; ?></td>
-                                                            <td><?php echo $team->nickcoach; ?></td>
-                                                            <td><?php echo $team->vm; ?></td>
-                                                            <td><?php echo $team->vr; ?></td>
-                                                            <td><?php echo $team->lm; ?></td>
-                                                            <td><?php echo $team->lr; ?></td>
+                                                    <?php foreach ($bank as $extract){ ?>
+                                                        <tr class="<?php if($extract->balance < 0){echo "danger";} ?>">
+                                                            <td><?php echo $extract->name; ?></td>
+                                                            <td><?php echo $extract->nickcoach; ?></td>
+                                                            <td>
+                                                                <?php
+                                                                    if($extract->balance < 0){
+                                                                        echo "Em débito";
+                                                                    }
+                                                                    else{
+                                                                        if($extract->balance > 0){
+                                                                            echo "Com saldo";
+                                                                        }
+                                                                        else{
+                                                                            echo "Em dia";
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                            <td><?php echo $extract->balance; ?></td>
+                                                            <td>
+                                                                <a href="<?= base_url('bank/add/'.$extract->bankid); ?>" title="Adicionar" class="icon-info"
+                                                                   onclick="return confirm('Confirme para adicionar o pagamento da cota.');">
+                                                                    <i class="ti-plus"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>

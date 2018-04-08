@@ -98,7 +98,9 @@ class Login extends CI_Controller {
     
     public function checknewteam($league) {
         $this->load->model('TeamModel');
+        $this->load->model('BankModel');
         $team = new TeamModel();
+        $bank = new BankModel();
         
         foreach ($league['times'] as $leagueteam) {
             $aux = $team->search($leagueteam['time_id']);
@@ -114,7 +116,15 @@ class Login extends CI_Controller {
                 $teamdata['lr'] = 0;
                 $teamdata['lm'] = 0;
 
-                $team->save($teamdata);
+                if($team->save($teamdata)){
+                    $bankdata['bankid'] = null;
+                    $bankdata['team'] = $leagueteam['time_id'];
+                    $bankdata['balance'] = -1;
+
+                    if($bank->save($bankdata)){
+                        
+                    }
+                }
             }
         }
     }
@@ -194,11 +204,13 @@ class Login extends CI_Controller {
         $this->load->model('MonthlyviewModel');
         $this->load->model('RoundsModel');
         $this->load->model('RankingModel');
+        $this->load->model('BankModel');
         $team = new TeamModel();
         $annual = new AnnualviewModel();
         $monthly = new MonthlyviewModel();
         $rounds = new RoundsModel();
         $ranking = new RankingModel();
+        $bank = new BankModel();
         
         $round = $rounds->search($json['rodada_atual']);
         
@@ -228,14 +240,18 @@ class Login extends CI_Controller {
             }
             $cont++;
         }
-        $monthly->update($pastmvdata);
+        if($monthly->update($pastmvdata)){
+            
+        }
         
         $mvdata['mvid'] = $round['roundsid'];
         $mvdata['month'] = $round['month'];
         $mvdata['winner'] = "Não definido";
         $mvdata['loser'] = "Não definido";
         
-        $monthly->save($mvdata);
+        if($monthly->save($mvdata)){
+            
+        }
         
         $anvw = $annual->search($round['month']);
         
@@ -246,7 +262,9 @@ class Login extends CI_Controller {
             $avdata['winner'] = $anvw['winner'];
             $avdata['loser'] = $anvw['loser'];
 
-            $annual->update($avdata);
+            if($annual->update($avdata)){
+                
+            }
         }
         else{
             $pastav = $annual->search($round['month']-1);
@@ -277,7 +295,9 @@ class Login extends CI_Controller {
                 $cont++;
             }
             
-            $annual->update($pastavdata);
+            if($annual->update($pastavdata)){
+                
+            }
             
             $avdata['avid'] = $round['month'];
             $desc = null;
@@ -315,7 +335,21 @@ class Login extends CI_Controller {
             $avdata['winner'] = "Não definido";
             $avdata['loser'] = "Não definido";
 
-            $annual->save($avdata);
+            if($annual->save($avdata)){
+                
+            }
+            
+            $aux = 1;
+            while($bank->search($aux) != null){
+                $bd = $bank->search($aux);
+                $bankdata['bankid'] = $bd['bankid'];
+                $bankdata['team'] = $bd['team'];
+                $bankdata['balance'] = $bd['bankid']-1;
+                
+                if($bank->update($bankdata)){
+                    $aux++;
+                }
+            }
             
         }
     }
@@ -334,7 +368,9 @@ class Login extends CI_Controller {
         $teamdata['lr'] = $obj['lr'];
         $teamdata['lm'] = $obj['lm'];
         
-        $team->update($teamdata);
+        if($team->update($teamdata)){
+            
+        }
     }
     
     public function setroundlose($obj) {
@@ -351,7 +387,9 @@ class Login extends CI_Controller {
         $teamdata['lr'] = $obj['lr']++;
         $teamdata['lm'] = $obj['lm'];
         
-        $team->update($teamdata);
+        if($team->update($teamdata)){
+            
+        }
     }
     
     public function setmonthwin($obj) {
@@ -368,7 +406,9 @@ class Login extends CI_Controller {
         $teamdata['lr'] = $obj['lr'];
         $teamdata['lm'] = $obj['lm'];
         
-        $team->update($teamdata);
+        if($team->update($teamdata)){
+            
+        }
     }
     
     public function setmonthlose($obj) {
@@ -385,7 +425,9 @@ class Login extends CI_Controller {
         $teamdata['lr'] = $obj['lr'];
         $teamdata['lm'] = $obj['lm']++;
         
-        $team->update($teamdata);
+        if($team->update($teamdata)){
+            
+        }
     }
     
     public function checkstatus() {
@@ -399,7 +441,9 @@ class Login extends CI_Controller {
         $lsdata['currentround'] = $json['rodada_atual'];
         $lsdata['marketstatus'] = $json['status_mercado'];
         
-        $status->update($lsdata);
+        if($status->update($lsdata)){
+            
+        }
     }
     
     public function getstatus() {

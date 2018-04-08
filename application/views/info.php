@@ -101,7 +101,7 @@
                                                             <td><?php echo $data->loser; ?></td>
                                                             <td>
                                                                 <a href="<?= base_url('info/detail/'.$data->avid); ?>" title="Detalhes" class="icon-info">
-                                                                    <i class="ti-plus"></i>
+                                                                    <i class="ti-search"></i>
                                                                 </a>
                                                             </td>
                                                         </tr>
