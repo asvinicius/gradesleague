@@ -35,7 +35,7 @@ ini_set(“display_errors”, 0 );
 
                     <ul class="nav">
                         <li class="<?php if($current != null){if($current["id"] == 2){echo 'active';}} ?>">
-                            <a href="#" title="Parciais">
+                            <a href="<?= base_url('partial'); ?>" title="Parciais">
                                 <i class="ti-stats-up"></i>
                                 <p>Parciais</p>
                             </a>
