@@ -15,9 +15,10 @@ class Info extends CI_Controller {
             $avdata = $anual->listing();
             
             $page = $this->getPage();
-            $msg = array("teams" => $teams, "avdata" => $avdata);
+            $status = $this->getstatus();
+            $msg = array("teams" => $teams, "avdata" => $avdata, "page" => $page, "status" => $status['status_mercado']);
             
-            $this->load->view('template/menu', $page);
+            $this->load->view('template/menu', $msg);
             $this->load->view('info', $msg);
             $this->load->view('template/footer');
         }

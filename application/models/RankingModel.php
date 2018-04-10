@@ -44,6 +44,7 @@ class RankingModel extends CI_Model{
     public function listing($type) {
         $this->db->where("type", $type);
         $this->db->order_by("rating", "desc");
+        $this->db->order_by("nickcoach", "asc");
         $this->db->join('team', 'team.teamid=team', 'inner');
         return $this->db->get("ranking")->result();
     }

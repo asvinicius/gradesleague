@@ -10,11 +10,12 @@ class Bank extends CI_Controller {
             $bank = new BankModel();
             
             $page = $this->getPage();
+            $status = $this->getstatus();
             $delivery = $bank->listing();
             
-            $msg = array("bank" => $delivery);
+            $msg = array("bank" => $delivery, "page" => $page, "status" => $status['status_mercado']);
             
-            $this->load->view('template/menu', $page);
+            $this->load->view('template/menu', $msg);
             $this->load->view('bank', $msg);
             $this->load->view('template/footer');
         }

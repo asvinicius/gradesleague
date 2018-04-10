@@ -58,34 +58,27 @@
                                         <div class="tab-pane active" id="round">
                                             <div class="content table-responsive table-full-width">
                                                 <table class="table table-hover">
-                                                    <?php if(1==1){ ?>
+                                                    <?php if($partial){ ?>
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
                                                             <th title="Nome do cartoleiro">Cartoleiro</th>
-                                                            <th title="Pontuação total">Pontuação</th>
+                                                            <th title="Pontuação parcial">Pontuação</th>
                                                         </thead>
                                                         <tbody>
                                                             <?php
                                                                 $cont = 1;
                                                                 $final = 0;
-                                                                foreach ($ranking as $ranked) {
+                                                                foreach ($partial as $pround) {
                                                                     $final = $final+1;
                                                                 }
-                                                                foreach ($ranking as $ranked){ ?>
-                                                            <tr <?php switch ($cont) {
-                                                                                case 1:
-                                                                                    echo 'class="success"';
-                                                                                    break;
-                                                                                case $final:
-                                                                                    echo 'class="danger"';
-                                                                                    break;
-                                                                            } ?>>
-                                                                    <td><?php echo $cont; ?></td>
-                                                                        <td><?php echo $ranked->name ?></td>
-                                                                        <td><?php echo $ranked->nickcoach ?></td>
-                                                                    <td><?php echo number_format($ranked->rating, 2) ?></td>
-                                                                </tr>
+                                                                foreach ($partial as $pround){ ?>
+                                                            <tr>
+                                                                <td><?php echo $cont; ?></td>
+                                                                <td><?php echo $pround['nome']; ?></td>
+                                                                <td><?php echo $pround['cartoleiro']; ?></td>
+                                                                <td><?php echo number_format($pround['parcial'], 2) ?></td>
+                                                            </tr>
                                                             <?php $cont++;
 
                                                                 } ?>
@@ -97,7 +90,7 @@
                                         <div class="tab-pane" id="month">
                                             <div class="content table-responsive table-full-width">
                                                 <table class="table table-hover">
-                                                    <?php if(1==1){ ?>
+                                                    <?php if($month){ ?>
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
@@ -108,10 +101,10 @@
                                                             <?php
                                                                 $cont = 1;
                                                                 $final = 0;
-                                                                foreach ($ranking as $ranked) {
+                                                                foreach ($month as $pmonth) {
                                                                     $final = $final+1;
                                                                 }
-                                                                foreach ($ranking as $ranked){ ?>
+                                                                foreach ($month as $pmonth){ ?>
                                                             <tr <?php switch ($cont) {
                                                                                 case 1:
                                                                                     echo 'class="success"';
@@ -120,11 +113,11 @@
                                                                                     echo 'class="danger"';
                                                                                     break;
                                                                             } ?>>
-                                                                    <td><?php echo $cont; ?></td>
-                                                                        <td><?php echo $ranked->name ?></td>
-                                                                        <td><?php echo $ranked->nickcoach ?></td>
-                                                                    <td><?php echo number_format($ranked->rating, 2) ?></td>
-                                                                </tr>
+                                                                <td><?php echo $cont; ?></td>
+                                                                <td><?php echo $pmonth['nome']; ?></td>
+                                                                <td><?php echo $pmonth['cartoleiro']; ?></td>
+                                                                <td><?php echo number_format($pmonth['pontos']['mes'], 2) ?></td>
+                                                            </tr>
                                                             <?php $cont++;
 
                                                                 } ?>
@@ -136,7 +129,7 @@
                                         <div class="tab-pane" id="overall">
                                             <div class="content table-responsive table-full-width">
                                                 <table class="table table-hover">
-                                                    <?php if(1==1){ ?>
+                                                    <?php if($overall){ ?>
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
@@ -147,23 +140,20 @@
                                                             <?php
                                                                 $cont = 1;
                                                                 $final = 0;
-                                                                foreach ($ranking as $ranked) {
+                                                                foreach ($overall as $poverall) {
                                                                     $final = $final+1;
                                                                 }
-                                                                foreach ($ranking as $ranked){ ?>
+                                                                foreach ($overall as $poverall){ ?>
                                                             <tr <?php switch ($cont) {
                                                                                 case 1:
                                                                                     echo 'class="success"';
                                                                                     break;
-                                                                                case $final:
-                                                                                    echo 'class="danger"';
-                                                                                    break;
                                                                             } ?>>
-                                                                    <td><?php echo $cont; ?></td>
-                                                                        <td><?php echo $ranked->name ?></td>
-                                                                        <td><?php echo $ranked->nickcoach ?></td>
-                                                                    <td><?php echo number_format($ranked->rating, 2) ?></td>
-                                                                </tr>
+                                                                <td><?php echo $cont; ?></td>
+                                                                <td><?php echo $poverall['nome']; ?></td>
+                                                                <td><?php echo $poverall['cartoleiro']; ?></td>
+                                                                <td><?php echo number_format($poverall['pontos']['campeonato'], 2) ?></td>
+                                                            </tr>
                                                             <?php $cont++;
 
                                                                 } ?>

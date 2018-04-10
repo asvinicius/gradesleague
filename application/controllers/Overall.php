@@ -10,10 +10,11 @@ class Overall extends CI_Controller {
             $ranking = new RankingModel();
                      
             $page = $this->getPage();
+            $status = $this->getstatus();
             $delivery = $ranking->listing(0);
-            $msg = array("ranking" => $delivery);
+            $msg = array("ranking" => $delivery, "page" => $page, "status" => $status['status_mercado']);
             
-            $this->load->view('template/menu', $page);
+            $this->load->view('template/menu', $msg);
             $this->load->view('overall', $msg);
             $this->load->view('template/footer');
         }

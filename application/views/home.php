@@ -57,7 +57,7 @@
                                     <div class="footer">
                                         <hr />
                                         <div class="stats">
-                                            <i class="ti-unlock"></i> Mercado <?php echo $message; ?>
+                                            <i class="ti-<?php echo $icon; ?>"></i> Mercado <?php echo $message; ?>
                                         </div>
                                     </div>
                                 </div>

@@ -10,10 +10,11 @@ class Month extends CI_Controller {
             $ranking = new RankingModel();
                      
             $page = $this->getPage();
+            $status = $this->getstatus();
             $delivery = $ranking->listing(1);
-            $msg = array("ranking" => $delivery);
+            $msg = array("ranking" => $delivery, "page" => $page, "status" => $status['status_mercado']);
             
-            $this->load->view('template/menu', $page);
+            $this->load->view('template/menu', $msg);
             $this->load->view('month', $msg);
             $this->load->view('template/footer');
         }
