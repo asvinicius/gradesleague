@@ -62,7 +62,7 @@ class Partial extends CI_Controller {
             $t[$i] = array(
                 "nome" => $squad[$i]['time']['nome'],
                 "cartoleiro" => $squad[$i]['time']['nome_cartola'],
-                "parcial" => $this->getPartial($squad[$i]['atletas']));
+                "parcial" => $this->getPartial($squad[$i]['atletas'], $squad[$i]['capitao_id']));
         }
                 
         for($i = 0; $i<$final-1; $i++){
@@ -75,9 +75,13 @@ class Partial extends CI_Controller {
             }
         }
         
-        for($i = 0; $i<$final; $i++){
-            $teams = array("t".($i+1)."" => $t[$i]);
-        }
+        $teams = array(
+                "t1" => $t[0],
+                "t2" => $t[1],
+                "t3" => $t[2],
+                "t4" => $t[3],
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $teams;
     }
@@ -114,9 +118,13 @@ class Partial extends CI_Controller {
         }
         
         
-        for($i = 0; $i<$final; $i++){
-            $month = array("t".($i+1)."" => $t[$i]);
-        }
+        $month = array(
+                "t1" => $t[0],
+                "t2" => $t[1],
+                "t3" => $t[2],
+                "t4" => $t[3],
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $month;
     }
@@ -152,15 +160,19 @@ class Partial extends CI_Controller {
             $t[$i]['pontos']['campeonato'] = number_format($t[$i]['pontos']['campeonato'], 2);
         }
         
-        for($i = 0; $i<$final; $i++){
-            $overall = array("t".($i+1)."" => $t[$i]);
-        }
+        $overall = array(
+                "t1" => $t[0],
+                "t2" => $t[1],
+                "t3" => $t[2],
+                "t4" => $t[3],
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $overall;
     }
     
     
-    public function getPartial($atletas) {
+    public function getPartial($atletas, $capita) {
         $url = 'https://api.cartolafc.globo.com/atletas/pontuados';
         
         $ch = curl_init();
@@ -186,7 +198,12 @@ class Partial extends CI_Controller {
         foreach ($atletas as $atleta){
             foreach ($json['atletas'] as $verify) {
               if($atleta['apelido'] == $verify['apelido'] && $atleta['clube_id'] == $verify['clube_id']){
-                  $parcial = $parcial + $verify['pontuacao'];
+                  if($atleta['atleta_id'] == $capita){
+                      $parcial = $parcial + ($verify['pontuacao']*2);
+                  }
+                  else{
+                      $parcial = $parcial + $verify['pontuacao'];
+                  }
               }
             }
         }

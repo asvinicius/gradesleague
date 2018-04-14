@@ -1,3 +1,8 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+error_reporting(0);
+ini_set(“display_errors”, 0 );
+?>
 <!doctype html>
 <html lang="en">
     <head>
@@ -54,7 +59,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div id="my-tab-content" class="tab-content text-center">
+                                    <div id="my-tab-content" class="tab-content">
                                         <div class="tab-pane active" id="round">
                                             <div class="content table-responsive table-full-width">
                                                 <table class="table table-hover">
@@ -62,7 +67,6 @@
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
-                                                            <th title="Nome do cartoleiro">Cartoleiro</th>
                                                             <th title="Pontuação parcial">Pontuação</th>
                                                         </thead>
                                                         <tbody>
@@ -76,7 +80,6 @@
                                                             <tr>
                                                                 <td><?php echo $cont; ?></td>
                                                                 <td><?php echo $pround['nome']; ?></td>
-                                                                <td><?php echo $pround['cartoleiro']; ?></td>
                                                                 <td><?php echo number_format($pround['parcial'], 2) ?></td>
                                                             </tr>
                                                             <?php $cont++;
@@ -94,7 +97,6 @@
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
-                                                            <th title="Nome do cartoleiro">Cartoleiro</th>
                                                             <th title="Pontuação total">Pontuação</th>
                                                         </thead>
                                                         <tbody>
@@ -115,7 +117,6 @@
                                                                             } ?>>
                                                                 <td><?php echo $cont; ?></td>
                                                                 <td><?php echo $pmonth['nome']; ?></td>
-                                                                <td><?php echo $pmonth['cartoleiro']; ?></td>
                                                                 <td><?php echo number_format($pmonth['pontos']['mes'], 2) ?></td>
                                                             </tr>
                                                             <?php $cont++;
@@ -133,7 +134,6 @@
                                                         <thead>
                                                             <th title="Posição">#</th>
                                                             <th title="Nome do time">Time</th>
-                                                            <th title="Nome do cartoleiro">Cartoleiro</th>
                                                             <th title="Pontuação total">Pontuação</th>
                                                         </thead>
                                                         <tbody>
@@ -151,7 +151,6 @@
                                                                             } ?>>
                                                                 <td><?php echo $cont; ?></td>
                                                                 <td><?php echo $poverall['nome']; ?></td>
-                                                                <td><?php echo $poverall['cartoleiro']; ?></td>
                                                                 <td><?php echo number_format($poverall['pontos']['campeonato'], 2) ?></td>
                                                             </tr>
                                                             <?php $cont++;

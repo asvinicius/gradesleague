@@ -11,7 +11,7 @@ O objetivo é que seja capaz de registrar todos os dados sobre a liga, como:
     * Informações da quantidade de vitórias por time;
     * Informação de pagamentos de cotas mensais;
 
-Version 2.0.5.0
+Version 2.0.5.1
 
 Version X.Y.Z.H -> 
     * X: Versão de 2018, segunda do projeto; 
@@ -29,7 +29,7 @@ Estado da arte:
         * Integração de dados entre a API e o banco de dados para informação campeões das rodadas e mêses - CONCLUÍDO;
     * F4: INFORMAÇÕES SOBRE PAGAMENTOS DAS COTAS - CONCLUÍDO;
         * Registro em banco de dados sobre pagamentos de cotas, atualizando a cada mês - CONCLUÍDO;
-    * F5: INFORMAÇÕES SOBRE PARCIAIS RODADA, MÊS E CAMPEONATO - COMCLUÍDO;
+    * F5: INFORMAÇÕES SOBRE PARCIAIS RODADA, MÊS E CAMPEONATO - CONCLUÍDO;
         * Integração de dados entre a API e o banco de dados para informação de pontuações parciais - CONCLUÍDO;
 
 Aguardando início das atividades do Cartola FC para testar os funcionamentos e corrigir possíveis erros.
