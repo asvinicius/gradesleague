@@ -2,13 +2,22 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Partial extends CI_Controller {
+class Squad extends CI_Controller {
 
     public function index(){
         if($this->islogged()){       
             $jstat = $this->getstatus();
+            $page = $this->getPage();
+                            
+                $msg = array( 
+                    "page" => $page, 
+                    "status" => $jstat['status_mercado']);
+
+                $this->load->view('template/menu', $msg);
+                $this->load->view('squad', $msg);
+                $this->load->view('template/footer');
             
-            if($jstat['status_mercado'] == 2){
+            /*if($jstat['status_mercado'] == 2){
                 $json = $this->getleague();
                 
                 $partial = $this->partround();
@@ -30,7 +39,7 @@ class Partial extends CI_Controller {
             }
             else{
                 redirect(base_url('welcome'));
-            }
+            }*/
         }
     }
     
@@ -80,8 +89,8 @@ class Partial extends CI_Controller {
                 "t2" => $t[1],
                 "t3" => $t[2],
                 "t4" => $t[3],
-                "t5" => $t[4],
-                "t6" => $t[5]);
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $teams;
     }
@@ -123,8 +132,8 @@ class Partial extends CI_Controller {
                 "t2" => $t[1],
                 "t3" => $t[2],
                 "t4" => $t[3],
-                "t5" => $t[4],
-                "t6" => $t[5]);
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $month;
     }
@@ -165,8 +174,8 @@ class Partial extends CI_Controller {
                 "t2" => $t[1],
                 "t3" => $t[2],
                 "t4" => $t[3],
-                "t5" => $t[4],
-                "t6" => $t[5]);
+                "t5" => $t[4]);
+                //"t6" => $t[5]
         
         return $overall;
     }

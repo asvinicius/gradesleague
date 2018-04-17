@@ -35,32 +35,32 @@ ini_set(“display_errors”, 0 );
 
                     <ul class="nav">
                         <?php if($status == 2){ ?>
-                            <li class="<?php if($current != null){if($current["id"] == 2){echo 'active';}} ?>">
+                            <li class="<?php if($page['current'] != null){if($page['current']["id"] == 2){echo 'active';}} ?>">
                                 <a href="<?= base_url('partial'); ?>" title="Parciais">
                                     <i class="ti-stats-up"></i>
                                     <p>Parciais</p>
                                 </a>
                             </li>
                         <?php } ?>
-                        <li class="<?php if($current != null){if($current["id"] == 3){echo 'active';}} ?>">
+                        <li class="<?php if($page['current'] != null){if($page['current']["id"] == 3){echo 'active';}} ?>">
                             <a href="<?= base_url('overall'); ?>" title="Tabela Geral">
                                 <i class="ti-view-list-alt"></i>
                                 <p>Tabela Geral</p>
                             </a>
                         </li>
-                        <li class="<?php if($current != null){if($current["id"] == 4){echo 'active';}} ?>">
+                        <li class="<?php if($page['current'] != null){if($page['current']["id"] == 4){echo 'active';}} ?>">
                             <a href="<?= base_url('month'); ?>" title="Tabela Mês">
                                 <i class="ti-calendar"></i>
                                 <p>Tabela Mês</p>
                             </a>
                         </li>
-                        <li class="<?php if($current != null){if($current["id"] == 5){echo 'active';}} ?>">
+                        <li class="<?php if($page['current'] != null){if($page['current']["id"] == 5){echo 'active';}} ?>">
                             <a href="<?= base_url('bank'); ?>" title="Banco">
                                 <i class="ti-wallet"></i>
                                 <p>Banco</p>
                             </a>
                         </li>
-                        <li class="<?php if($current != null){if($current["id"] == 6){echo 'active';}} ?>">
+                        <li class="<?php if($page['current'] != null){if($page['current']["id"] == 6){echo 'active';}} ?>">
                             <a href="<?= base_url('info'); ?>" title="Informações">
                                 <i class="ti-info"></i>
                                 <p>Informações</p>

@@ -258,7 +258,7 @@ class Login extends CI_Controller {
         if($anvw){
             $avdata['avid'] = $anvw['avid'];
             $avdata['description'] = $anvw['description'];
-            $avdata['rounds'] = $anvw['rounds']++;
+            $avdata['rounds'] = $anvw['rounds']+1;
             $avdata['winner'] = $anvw['winner'];
             $avdata['loser'] = $anvw['loser'];
 
@@ -363,7 +363,7 @@ class Login extends CI_Controller {
         $teamdata['coach'] = $obj['coach'];
         $teamdata['teamslug'] = $obj['teamslug'];
         $teamdata['nickcoach'] = $obj['nickcoach'];
-        $teamdata['vr'] = $obj['vr']++;
+        $teamdata['vr'] = $obj['vr']+1;
         $teamdata['vm'] = $obj['vm'];
         $teamdata['lr'] = $obj['lr'];
         $teamdata['lm'] = $obj['lm'];
@@ -384,7 +384,7 @@ class Login extends CI_Controller {
         $teamdata['nickcoach'] = $obj['nickcoach'];
         $teamdata['vr'] = $obj['vr'];
         $teamdata['vm'] = $obj['vm'];
-        $teamdata['lr'] = $obj['lr']++;
+        $teamdata['lr'] = $obj['lr']+1;
         $teamdata['lm'] = $obj['lm'];
         
         if($team->update($teamdata)){
@@ -402,7 +402,7 @@ class Login extends CI_Controller {
         $teamdata['teamslug'] = $obj['teamslug'];
         $teamdata['nickcoach'] = $obj['nickcoach'];
         $teamdata['vr'] = $obj['vr'];
-        $teamdata['vm'] = $obj['vm']++;
+        $teamdata['vm'] = $obj['vm']+1;
         $teamdata['lr'] = $obj['lr'];
         $teamdata['lm'] = $obj['lm'];
         
@@ -423,7 +423,7 @@ class Login extends CI_Controller {
         $teamdata['vr'] = $obj['vr'];
         $teamdata['vm'] = $obj['vm'];
         $teamdata['lr'] = $obj['lr'];
-        $teamdata['lm'] = $obj['lm']++;
+        $teamdata['lm'] = $obj['lm']+1;
         
         if($team->update($teamdata)){
             
