@@ -344,7 +344,7 @@ class Login extends CI_Controller {
                 $bd = $bank->search($aux);
                 $bankdata['bankid'] = $bd['bankid'];
                 $bankdata['team'] = $bd['team'];
-                $bankdata['balance'] = $bd['bankid']-1;
+                $bankdata['balance'] = $bd['balance']-1;
                 
                 if($bank->update($bankdata)){
                     $aux++;

@@ -151,7 +151,7 @@ ini_set(“display_errors”, 0 );
                                                                             } ?>>
                                                                 <td><?php echo $cont; ?></td>
                                                                 <td><?php echo $poverall['nome']; ?></td>
-                                                                <td><?php echo number_format($poverall['pontos']['campeonato'], 2) ?></td>
+                                                                <td><?php echo $poverall['pontos']['campeonato'] ?></td>
                                                             </tr>
                                                             <?php $cont++;
 
